@@ -1,8 +1,10 @@
-Flask==2.1.1
-requests==2.26.0
-Flask-MySQLdb==0.2.0
-googlesearch-python==1.0.1
 pytrends==5.1.0
 cachetools==4.2.2
-python-dotenv==0.19.2
 difflib==3.7.5
+Flask==2.0.3
+flask-mysqldb==0.2.0
+python-dotenv==0.18.0
+requests==2.26.0
+gunicorn==20.1.0
+googlesearcher==1.0.1
+urllib3==1.26.7 
