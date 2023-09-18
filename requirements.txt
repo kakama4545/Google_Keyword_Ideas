@@ -1,6 +1,5 @@
 pytrends==4.9.2
 cachetools==4.2.2
-difflib==3.7.5
 Flask==2.0.3
 flask-mysqldb==0.2.0
 python-dotenv==0.18.0
