@@ -858,7 +858,7 @@ def google_keyword_Data():
         return jsonify(ordered_response)
 
     except Exception as e:
-         datae = {"message": "Sorry.. No data found in my Database. if you try after 1 min, get big Keyword Research Data... or try another country"}
+        datae = {"message": "Sorry.. No data found in my Database. if you try after 1 min, get big Keyword Research Data... or try another country"}
         return jsonify({'error': str(datae)}), 200
 
 if __name__ == '__main__':
