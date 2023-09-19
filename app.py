@@ -450,8 +450,8 @@ def get_keyword_data():
         return jsonify(ordered_response)
 
     except Exception as e:
-        datae = {"message": "Sorry..  No data found in my Database."}
-        return jsonify({'error': str(datae)}), 500
+        datae = {"message": "Sorry.. No data found in my Database. if you try after 1 min, get big Keyword Research Data... or try another country"}
+        return jsonify({'error': str(datae)}), 200
     
    # Route to fetch keyword data and SERP data from the MySQL database
 @app.route('/keyword_ideas', methods=['GET'])
@@ -542,8 +542,8 @@ def semrush_keyword_Data():
         return jsonify(ordered_response)
 
     except Exception as e:
-        datae = {"message": "Sorry..  No data found in my Data."}
-        return jsonify({'error': str(datae)}), 500
+         datae = {"message": "Sorry.. No data found in my Database. if you try after 1 min, get big Keyword Research Data... or try another country"}
+        return jsonify({'error': str(datae)}), 200
 
 # Route to fetch keyword data and SERP data from the MySQL database
 @app.route('/google_keyword_overview', methods=['GET'])
@@ -766,8 +766,8 @@ def get_google_keyword_data():
         return jsonify(ordered_response)
 
     except Exception as e:
-        datae = {"message": "Sorry..  No data found in my Database."}
-        return jsonify({'error': str(datae)}), 500
+         datae = {"message": "Sorry.. No data found in my Database. if you try after 1 min, get big Keyword Research Data... or try another country"}
+        return jsonify({'error': str(datae)}), 200
     
    # Route to fetch keyword data and SERP data from the MySQL database
 @app.route('/google_keyword_ideas', methods=['GET'])
@@ -858,7 +858,7 @@ def google_keyword_Data():
         return jsonify(ordered_response)
 
     except Exception as e:
-        datae = {"message": "Sorry..  No data found in my Data."}
+         datae = {"message": "Sorry.. No data found in my Database. if you try after 1 min, get big Keyword Research Data... or try another country"}
         return jsonify({'error': str(datae)}), 200
 
 if __name__ == '__main__':
