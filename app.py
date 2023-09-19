@@ -770,7 +770,7 @@ def get_google_keyword_data():
         return jsonify({'error': str(e)}), 500
     
    # Route to fetch keyword data and SERP data from the MySQL database
-@app.route('/ggogle_keyword_ideas', methods=['GET'])
+@app.route('/google_keyword_ideas', methods=['GET'])
 def google_keyword_Data():
     try:
         keyword = request.args.get('keyword')
