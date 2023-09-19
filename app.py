@@ -451,7 +451,7 @@ def get_keyword_data():
 
     except Exception as e:
         datae = {"message": "Sorry..  No data found in my Database."}
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': str(datae)}), 500
     
    # Route to fetch keyword data and SERP data from the MySQL database
 @app.route('/keyword_ideas', methods=['GET'])
@@ -767,7 +767,7 @@ def get_google_keyword_data():
 
     except Exception as e:
         datae = {"message": "Sorry..  No data found in my Database."}
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': str(datae)}), 500
     
    # Route to fetch keyword data and SERP data from the MySQL database
 @app.route('/google_keyword_ideas', methods=['GET'])
