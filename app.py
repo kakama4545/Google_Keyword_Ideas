@@ -859,7 +859,7 @@ def google_keyword_Data():
 
     except Exception as e:
         datae = {"message": "Sorry..  No data found in my Data."}
-        return jsonify({'error': str(datae)}), 500
+        return jsonify({'error': str(datae)}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
