@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 import difflib, os, re, requests
-from flask_mysqldb import MySQL
 from googlesearcher import Google
 from urllib.parse import urlparse
 from datetime import datetime, timedelta
