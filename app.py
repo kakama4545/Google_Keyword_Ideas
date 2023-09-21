@@ -8,6 +8,30 @@ from dotenv import load_dotenv
 from pytrends.request import TrendReq
 import cachetools, requests, time
 
+"""
+CREATE TABLE google_keyword_data_in (
+    "Keyword" VARCHAR(512),
+    "Avg. monthly searches" VARCHAR(512),
+    "Competition" VARCHAR(512),
+    "Competition (indexed value)" VARCHAR(512),
+    "Top of page bid (low range)" VARCHAR(512),
+    "Top of page bid (high range)" VARCHAR(512),
+    "Searches: Sep 2022" VARCHAR(512),
+    "Searches: Oct 2022" VARCHAR(512),
+    "Searches: Nov 2022" VARCHAR(512),
+    "Searches: Dec 2022" VARCHAR(512),
+    "Searches: Jan 2023" VARCHAR(512),
+    "Searches: Feb 2023" VARCHAR(512),
+    "Searches: Mar 2023" VARCHAR(512),
+    "Searches: Apr 2023" VARCHAR(512),
+    "Searches: May 2023" VARCHAR(512),
+    "Searches: Jun 2023" VARCHAR(512),
+    "Searches: Jul 2023" VARCHAR(512),
+    "Searches: Aug 2023" VARCHAR(512)
+);
+INSERT INTO google_keyword_data_in ("Keyword", "Avg. monthly searches", "Competition", "Competition (indexed value)", "Top of page bid (low range)", "Top of page bid (high range)", "Searches: Sep 2022", "Searches: Oct 2022", "Searches: Nov 2022", "Searches: Dec 2022", "Searches: Jan 2023", "Searches: Feb 2023", "Searches: Mar 2023", "Searches: Apr 2023", "Searches: May 2023", "Searches: Jun 2023", "Searches: Jul 2023", "Searches: Aug 2023")
+VALUES 
+"""
 # Increase the timeout for all requests made by the `requests` library
 # This should be placed at the beginning of your script
 requests.adapters.DEFAULT_RETRIES = 10
