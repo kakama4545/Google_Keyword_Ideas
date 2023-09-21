@@ -1,7 +1,7 @@
 pytrends==4.9.2
 cachetools==4.2.2
 Flask==2.0.3
-psycopg2==2.9.1
+psycopg2==2.9.7
 python-dotenv==0.18.0
 requests==2.26.0
 gunicorn==20.1.0
