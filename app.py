@@ -42,29 +42,25 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# Function to create a database connection
-def create_db_connection():
+import psycopg2
+
+# Establish a connection to PostgreSQL
+def connect_to_postgres():
     try:
-        # Load database credentials from environment variables
-        db_host = os.getenv('DB_HOST')
-        db_port = os.getenv('DB_PORT')
-        db_user = os.getenv('DB_USER')
-        db_password = os.getenv('DB_PASSWORD')
-        db_name = os.getenv('DB_NAME')
-
-        # Create a database connection
         connection = psycopg2.connect(
-            host=db_host,
-            port=db_port,
-            user=db_user,
-            password=db_password,
-            database=db_name
+            host=os.environ.get('POSTGRES_HOST'),
+            user=os.environ.get('POSTGRES_USER'),
+            password=os.environ.get('POSTGRES_PASSWORD'),
+            database=os.environ.get('POSTGRES_DB'),
+            port=os.environ.get('POSTGRES_PORT')
         )
-
         return connection
     except Exception as e:
-        print("Error creating database connection:", str(e))
+        print("Error connecting to PostgreSQL:", e)
         return None
+
+# Initialize a PostgreSQL connection
+postgres_connection = connect_to_postgres()
 
 # RapidAPI configurations
 RAPIDAPI_KEY = os.getenv('RAPIDAPI_KEY')
@@ -301,26 +297,26 @@ def get_keyword_data():
         # Construct the table name based on the selected country
         table_name = f'google_keyword_data_{sanitized_country.lower()}'
         # Create a database connection
-        db_connection = create_db_connection()
+        db_connection = connect_to_postgres()
         if db_connection is None:
             return jsonify({"error": "Failed to connect to the database."}), 500
 
         cursor = db_connection.cursor()
-
+        print("Connected to MySQL!////")
+        print(cursor)
+    
         # Construct the table name based on the selected country
-        table_name = f'google_keyword_data_{sanitized_country.lower()}'
+        table_name = f'googlekeywords_data_{sanitized_country.lower()}'
 
-        page = int(request.args.get('page', 1))  # Default to page 1 if not provided
-        limit = int(request.args.get('limit', 10))  # Default to 10 results per page
+        num_rows = 4000
 
-        # Modify your SQL query to include LIMIT and OFFSET
-        query = f"SELECT * FROM {table_name} LIMIT %s OFFSET %s"
-        cursor.execute(query, (limit, (page - 1) * limit))
-        keywords_data = cursor.fetchall()
         # Use string formatting to insert the table name into the SQL query
-        query = f"SELECT * FROM {table_name}"
+        query = f"SELECT * FROM {table_name} ORDER BY RANDOM() LIMIT {num_rows}"
         cursor.execute(query)
         keywords_data = cursor.fetchall()
+
+        print(".................")
+        print(len(keywords_data))
 
         # Use a parameterized query to select data from the table
         #query = 'SELECT * FROM %s'
