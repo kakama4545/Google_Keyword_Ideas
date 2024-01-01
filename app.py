@@ -70,7 +70,7 @@ RAPIDAPI_HOST = 'targeted-keyword-trend.p.rapidapi.com'
 allowed_countries = ['us', 'uk', 'ca', 'in']  # Add more as needed
 
 # Define the initial date and update interval
-date_present = datetime(2023, 9, 10)
+date_present = datetime(2023, 12, 20)
 update_interval = timedelta(days=10)
 
 # Function to update the date cyclically
