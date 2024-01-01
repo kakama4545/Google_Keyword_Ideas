@@ -68,6 +68,7 @@ RAPIDAPI_HOST = 'targeted-keyword-trend.p.rapidapi.com'
 
 # Define a list of allowed country codes
 allowed_countries = ['us', 'uk', 'ca', 'in']  # Add more as needed
+num_rows = 2000
 
 # Define the initial date and update interval
 date_present = datetime(2023, 12, 20)
@@ -261,9 +262,7 @@ def fetch_country_serp_data(sanitized_keyword, sanitized_country, num_results=10
 
     except Exception as e:
         return {'error': str(e)}
-
-
-    
+   
 # Route to fetch keyword data and SERP data from the MySQL database
 @app.route('/keyword_overview_Data', methods=['GET'])
 def get_keyword_data():
@@ -294,8 +293,7 @@ def get_keyword_data():
         google_trends_data = fetch_google_trends_data(sanitized_keyword, sanitized_country)
         # Append Interest by Region data to the response
         interest_data = fetch_interest_by_region_data(sanitized_keyword, sanitized_country)
-        # Construct the table name based on the selected country
-        table_name = f'google_keyword_data_{sanitized_country.lower()}'
+        
         # Create a database connection
         db_connection = connect_to_postgres()
         if db_connection is None:
@@ -308,7 +306,7 @@ def get_keyword_data():
         # Construct the table name based on the selected country
         table_name = f'googlekeywords_data_{sanitized_country.lower()}'
 
-        num_rows = 4000
+        
 
         # Use string formatting to insert the table name into the SQL query
         query = f"SELECT * FROM {table_name} ORDER BY RANDOM() LIMIT {num_rows}"
@@ -336,22 +334,21 @@ def get_keyword_data():
                     selected_data = {
                         "Keyword": keyword_data[0],  # Replace with appropriate column index
                     "Avg. monthly searches": keyword_data[1],  # Replace with appropriate column index
-                    "Competition": keyword_data[2],  # Replace with appropriate column index
-                    "Competition (indexed value)": keyword_data[3],  # Replace with appropriate column index
-                    "Top of page bid (low range)": keyword_data[4],  # Replace with appropriate column index
-                    "Top of page bid (high range)": keyword_data[5],  # Replace with appropriate column index
-                    "Searches: Sep 2022": keyword_data[6],  # Replace with appropriate column index
-                    "Searches: Oct 2022": keyword_data[7],  # Replace with appropriate column index
-                    "Searches: Nov 2022": keyword_data[8],  # Replace with appropriate column index
-                    "Searches: Dec 2022": keyword_data[9],  # Replace with appropriate column index
-                    "Searches: Jan 2023": keyword_data[10],  # Replace with appropriate column index
-                    "Searches: Feb 2023": keyword_data[11],  # Replace with appropriate column index
-                    "Searches: Mar 2023": keyword_data[12],  # Replace with appropriate column index
-                    "Searches: Apr 2023": keyword_data[13],  # Replace with appropriate column index
-                    "Searches: May 2023": keyword_data[14],  # Replace with appropriate column index
-                    "Searches: Jun 2023": keyword_data[15],  # Replace with appropriate column index
-                    "Searches: Jul 2023": keyword_data[16],  # Replace with appropriate column index
-                    "Searches: Aug 2023": keyword_data[17],  # Replace with appropriate column index
+                    "Competition (indexed value)": keyword_data[2],  # Replace with appropriate column index
+                    "Top of page bid (low range)": keyword_data[3],  # Replace with appropriate column index
+                    "Top of page bid (high range)": keyword_data[4],  # Replace with appropriate column index
+                    "Searches: Dec 2022": keyword_data[5],  # Replace with appropriate column index
+                    "Searches: Jan 2023": keyword_data[6],  # Replace with appropriate column index
+                    "Searches: Feb 2023": keyword_data[7],  # Replace with appropriate column index
+                    "Searches: Mar 2023": keyword_data[8],  # Replace with appropriate column index
+                    "Searches: Apr 2023": keyword_data[9],  # Replace with appropriate column index
+                    "Searches: May 2023": keyword_data[10],  # Replace with appropriate column index
+                    "Searches: Jun 2023": keyword_data[11],  # Replace with appropriate column index
+                    "Searches: Jul 2023": keyword_data[12],  # Replace with appropriate column index
+                    "Searches: Aug 2023": keyword_data[13],  # Replace with appropriate column index
+                    "Searches: Sep 2023": keyword_data[14],  # Replace with appropriate column index
+                    "Searches: Oct 2023": keyword_data[15],  # Replace with appropriate column index
+                    "Searches: Nov 2023": keyword_data[16],  # Replace with appropriate column index
                     "Updated": formatted_date  # Use the calculated date from one week ago
                     }
                     exact_match_data = selected_data
@@ -446,24 +443,23 @@ def get_keyword_data():
             similarity_ratio = difflib.SequenceMatcher(None, sanitized_keyword, keyword).ratio()
             #if similarity_ratio >= 0.8 and len(keyword) > 2:  # Exclude very short words
             filtered_related_data.append({
-                    "Keyword": keyword_data[0],  # Replace with appropriate column index
+                     "Keyword": keyword_data[0],  # Replace with appropriate column index
                     "Avg. monthly searches": keyword_data[1],  # Replace with appropriate column index
-                    "Competition": keyword_data[2],  # Replace with appropriate column index
-                    "Competition (indexed value)": keyword_data[3],  # Replace with appropriate column index
-                    "Top of page bid (low range)": keyword_data[4],  # Replace with appropriate column index
-                    "Top of page bid (high range)": keyword_data[5],  # Replace with appropriate column index
-                    "Searches: Sep 2022": keyword_data[6],  # Replace with appropriate column index
-                    "Searches: Oct 2022": keyword_data[7],  # Replace with appropriate column index
-                    "Searches: Nov 2022": keyword_data[8],  # Replace with appropriate column index
-                    "Searches: Dec 2022": keyword_data[9],  # Replace with appropriate column index
-                    "Searches: Jan 2023": keyword_data[10],  # Replace with appropriate column index
-                    "Searches: Feb 2023": keyword_data[11],  # Replace with appropriate column index
-                    "Searches: Mar 2023": keyword_data[12],  # Replace with appropriate column index
-                    "Searches: Apr 2023": keyword_data[13],  # Replace with appropriate column index
-                    "Searches: May 2023": keyword_data[14],  # Replace with appropriate column index
-                    "Searches: Jun 2023": keyword_data[15],  # Replace with appropriate column index
-                    "Searches: Jul 2023": keyword_data[16],  # Replace with appropriate column index
-                    "Searches: Aug 2023": keyword_data[17],  # Replace with appropriate column index
+                    "Competition (indexed value)": keyword_data[2],  # Replace with appropriate column index
+                    "Top of page bid (low range)": keyword_data[3],  # Replace with appropriate column index
+                    "Top of page bid (high range)": keyword_data[4],  # Replace with appropriate column index
+                    "Searches: Dec 2022": keyword_data[5],  # Replace with appropriate column index
+                    "Searches: Jan 2023": keyword_data[6],  # Replace with appropriate column index
+                    "Searches: Feb 2023": keyword_data[7],  # Replace with appropriate column index
+                    "Searches: Mar 2023": keyword_data[8],  # Replace with appropriate column index
+                    "Searches: Apr 2023": keyword_data[9],  # Replace with appropriate column index
+                    "Searches: May 2023": keyword_data[10],  # Replace with appropriate column index
+                    "Searches: Jun 2023": keyword_data[11],  # Replace with appropriate column index
+                    "Searches: Jul 2023": keyword_data[12],  # Replace with appropriate column index
+                    "Searches: Aug 2023": keyword_data[13],  # Replace with appropriate column index
+                    "Searches: Sep 2023": keyword_data[14],  # Replace with appropriate column index
+                    "Searches: Oct 2023": keyword_data[15],  # Replace with appropriate column index
+                    "Searches: Nov 2023": keyword_data[16],  # Replace with appropriate column index
                     "Updated": formatted_date  # Use the calculated date from one week ago
                 })
             #print (filtered_related_data)
@@ -498,7 +494,7 @@ def get_keyword_data():
 
     except Exception as e:
         datae = {"message": "Sorry.. No data found in my Database. if you try after 1 min, get big Keyword Research Data... or try another country"}
-        return jsonify({'error': str(datae)}), 200
+        return jsonify({'error': str(e)}), 200
     
    # Route to fetch keyword data and SERP data from the MySQL database
 @app.route('/keyword_ideas', methods=['GET'])
@@ -524,28 +520,27 @@ def semrush_keyword_Data():
         
         sanitized_country = country.strip().lower()
 
-         
-    
         # Construct the table name based on the selected country
         table_name = f'google_keyword_data_{sanitized_country.lower()}'
 
         # Create a database connection
-        db_connection = create_db_connection()
+        db_connection = connect_to_postgres()
         if db_connection is None:
             return jsonify({"error": "Failed to connect to the database."}), 500
 
         cursor = db_connection.cursor()
-
+        print("Connected to MySQL!////")
+        print(cursor)
+    
         # Construct the table name based on the selected country
-        table_name = f'google_keyword_data_{sanitized_country.lower()}'
-
-        page = int(request.args.get('page', 1))  # Default to page 1 if not provided
-        limit = int(request.args.get('limit', 10))  # Default to 10 results per page
-
-        # Modify your SQL query to include LIMIT and OFFSET
-        query = f"SELECT * FROM {table_name} LIMIT %s OFFSET %s"
-        cursor.execute(query, (limit, (page - 1) * limit))
+        table_name = f'googlekeywords_data_{sanitized_country.lower()}'
+# Use string formatting to insert the table name into the SQL query
+        query = f"SELECT * FROM {table_name} ORDER BY RANDOM() LIMIT {num_rows}"
+        cursor.execute(query)
         keywords_data = cursor.fetchall()
+
+        print(".................")
+        print(len(keywords_data))
 
         if not table_name:
             # Handle the case where no data is found in the table
@@ -562,22 +557,21 @@ def semrush_keyword_Data():
                 filtered_related_data.append({
                     "Keyword": keyword_data[0],  # Replace with appropriate column index
                     "Avg. monthly searches": keyword_data[1],  # Replace with appropriate column index
-                    "Competition": keyword_data[2],  # Replace with appropriate column index
-                    "Competition (indexed value)": keyword_data[3],  # Replace with appropriate column index
-                    "Top of page bid (low range)": keyword_data[4],  # Replace with appropriate column index
-                    "Top of page bid (high range)": keyword_data[5],  # Replace with appropriate column index
-                    "Searches: Sep 2022": keyword_data[6],  # Replace with appropriate column index
-                    "Searches: Oct 2022": keyword_data[7],  # Replace with appropriate column index
-                    "Searches: Nov 2022": keyword_data[8],  # Replace with appropriate column index
-                    "Searches: Dec 2022": keyword_data[9],  # Replace with appropriate column index
-                    "Searches: Jan 2023": keyword_data[10],  # Replace with appropriate column index
-                    "Searches: Feb 2023": keyword_data[11],  # Replace with appropriate column index
-                    "Searches: Mar 2023": keyword_data[12],  # Replace with appropriate column index
-                    "Searches: Apr 2023": keyword_data[13],  # Replace with appropriate column index
-                    "Searches: May 2023": keyword_data[14],  # Replace with appropriate column index
-                    "Searches: Jun 2023": keyword_data[15],  # Replace with appropriate column index
-                    "Searches: Jul 2023": keyword_data[16],  # Replace with appropriate column index
-                    "Searches: Aug 2023": keyword_data[17],  # Replace with appropriate column index
+                    "Competition (indexed value)": keyword_data[2],  # Replace with appropriate column index
+                    "Top of page bid (low range)": keyword_data[3],  # Replace with appropriate column index
+                    "Top of page bid (high range)": keyword_data[4],  # Replace with appropriate column index
+                    "Searches: Dec 2022": keyword_data[5],  # Replace with appropriate column index
+                    "Searches: Jan 2023": keyword_data[6],  # Replace with appropriate column index
+                    "Searches: Feb 2023": keyword_data[7],  # Replace with appropriate column index
+                    "Searches: Mar 2023": keyword_data[8],  # Replace with appropriate column index
+                    "Searches: Apr 2023": keyword_data[9],  # Replace with appropriate column index
+                    "Searches: May 2023": keyword_data[10],  # Replace with appropriate column index
+                    "Searches: Jun 2023": keyword_data[11],  # Replace with appropriate column index
+                    "Searches: Jul 2023": keyword_data[12],  # Replace with appropriate column index
+                    "Searches: Aug 2023": keyword_data[13],  # Replace with appropriate column index
+                    "Searches: Sep 2023": keyword_data[14],  # Replace with appropriate column index
+                    "Searches: Oct 2023": keyword_data[15],  # Replace with appropriate column index
+                    "Searches: Nov 2023": keyword_data[16],  # Replace with appropriate column index
                     "Updated": formatted_date  # Use the calculated date from one week ago
                })
 
@@ -635,33 +629,26 @@ def get_google_keyword_data():
         google_trends_data = fetch_google_trends_data(sanitized_keyword, sanitized_country)
         # Append Interest by Region data to the response
         interest_data = fetch_interest_by_region_data(sanitized_keyword, sanitized_country)
-         
-        
-    
-        # Construct the table name based on the selected country
-        table_name = f'google_keyword_data_{sanitized_country.lower()}'
 
         # Create a database connection
-        db_connection = create_db_connection()
+        db_connection = connect_to_postgres()
         if db_connection is None:
             return jsonify({"error": "Failed to connect to the database."}), 500
 
         cursor = db_connection.cursor()
-
+        print("Connected to MySQL!////")
+        print(cursor)
+    
         # Construct the table name based on the selected country
-        table_name = f'google_keyword_data_{sanitized_country.lower()}'
+        table_name = f'googlekeywords_data_{sanitized_country.lower()}'
 
-        page = int(request.args.get('page', 1))  # Default to page 1 if not provided
-        limit = int(request.args.get('limit', 10))  # Default to 10 results per page
-
-        # Modify your SQL query to include LIMIT and OFFSET
-        query = f"SELECT * FROM {table_name} LIMIT %s OFFSET %s"
-        cursor.execute(query, (limit, (page - 1) * limit))
+        # Use string formatting to insert the table name into the SQL query
+        query = f"SELECT * FROM {table_name} ORDER BY RANDOM() LIMIT {num_rows}"
+        cursor.execute(query)
         keywords_data = cursor.fetchall()
-        # Use a parameterized query to select data from the table
-        #query = 'SELECT * FROM %s'
-        #cursor.execute(query, (table_name,))
-        #keywords_data = cursor.fetchall()
+
+        print(".................")
+        print(len(keywords_data))
 
         exact_match_data = None
         related_data = []
@@ -676,22 +663,21 @@ def get_google_keyword_data():
                     selected_data = {
                         "Keyword": keyword_data[0],  # Replace with appropriate column index
                     "Avg. monthly searches": keyword_data[1],  # Replace with appropriate column index
-                    "Competition": keyword_data[2],  # Replace with appropriate column index
-                    "Competition (indexed value)": keyword_data[3],  # Replace with appropriate column index
-                    "Top of page bid (low range)": keyword_data[4],  # Replace with appropriate column index
-                    "Top of page bid (high range)": keyword_data[5],  # Replace with appropriate column index
-                    "Searches: Sep 2022": keyword_data[6],  # Replace with appropriate column index
-                    "Searches: Oct 2022": keyword_data[7],  # Replace with appropriate column index
-                    "Searches: Nov 2022": keyword_data[8],  # Replace with appropriate column index
-                    "Searches: Dec 2022": keyword_data[9],  # Replace with appropriate column index
-                    "Searches: Jan 2023": keyword_data[10],  # Replace with appropriate column index
-                    "Searches: Feb 2023": keyword_data[11],  # Replace with appropriate column index
-                    "Searches: Mar 2023": keyword_data[12],  # Replace with appropriate column index
-                    "Searches: Apr 2023": keyword_data[13],  # Replace with appropriate column index
-                    "Searches: May 2023": keyword_data[14],  # Replace with appropriate column index
-                    "Searches: Jun 2023": keyword_data[15],  # Replace with appropriate column index
-                    "Searches: Jul 2023": keyword_data[16],  # Replace with appropriate column index
-                    "Searches: Aug 2023": keyword_data[17],  # Replace with appropriate column index
+                    "Competition (indexed value)": keyword_data[2],  # Replace with appropriate column index
+                    "Top of page bid (low range)": keyword_data[3],  # Replace with appropriate column index
+                    "Top of page bid (high range)": keyword_data[4],  # Replace with appropriate column index
+                    "Searches: Dec 2022": keyword_data[5],  # Replace with appropriate column index
+                    "Searches: Jan 2023": keyword_data[6],  # Replace with appropriate column index
+                    "Searches: Feb 2023": keyword_data[7],  # Replace with appropriate column index
+                    "Searches: Mar 2023": keyword_data[8],  # Replace with appropriate column index
+                    "Searches: Apr 2023": keyword_data[9],  # Replace with appropriate column index
+                    "Searches: May 2023": keyword_data[10],  # Replace with appropriate column index
+                    "Searches: Jun 2023": keyword_data[11],  # Replace with appropriate column index
+                    "Searches: Jul 2023": keyword_data[12],  # Replace with appropriate column index
+                    "Searches: Aug 2023": keyword_data[13],  # Replace with appropriate column index
+                    "Searches: Sep 2023": keyword_data[14],  # Replace with appropriate column index
+                    "Searches: Oct 2023": keyword_data[15],  # Replace with appropriate column index
+                    "Searches: Nov 2023": keyword_data[16],  # Replace with appropriate column index
                     "Updated": formatted_date  # Use the calculated date from one week ago
                     }
                     exact_match_data = selected_data
@@ -788,22 +774,21 @@ def get_google_keyword_data():
             filtered_related_data.append({
                     "Keyword": keyword_data[0],  # Replace with appropriate column index
                     "Avg. monthly searches": keyword_data[1],  # Replace with appropriate column index
-                    "Competition": keyword_data[2],  # Replace with appropriate column index
-                    "Competition (indexed value)": keyword_data[3],  # Replace with appropriate column index
-                    "Top of page bid (low range)": keyword_data[4],  # Replace with appropriate column index
-                    "Top of page bid (high range)": keyword_data[5],  # Replace with appropriate column index
-                    "Searches: Sep 2022": keyword_data[6],  # Replace with appropriate column index
-                    "Searches: Oct 2022": keyword_data[7],  # Replace with appropriate column index
-                    "Searches: Nov 2022": keyword_data[8],  # Replace with appropriate column index
-                    "Searches: Dec 2022": keyword_data[9],  # Replace with appropriate column index
-                    "Searches: Jan 2023": keyword_data[10],  # Replace with appropriate column index
-                    "Searches: Feb 2023": keyword_data[11],  # Replace with appropriate column index
-                    "Searches: Mar 2023": keyword_data[12],  # Replace with appropriate column index
-                    "Searches: Apr 2023": keyword_data[13],  # Replace with appropriate column index
-                    "Searches: May 2023": keyword_data[14],  # Replace with appropriate column index
-                    "Searches: Jun 2023": keyword_data[15],  # Replace with appropriate column index
-                    "Searches: Jul 2023": keyword_data[16],  # Replace with appropriate column index
-                    "Searches: Aug 2023": keyword_data[17],  # Replace with appropriate column index
+                    "Competition (indexed value)": keyword_data[2],  # Replace with appropriate column index
+                    "Top of page bid (low range)": keyword_data[3],  # Replace with appropriate column index
+                    "Top of page bid (high range)": keyword_data[4],  # Replace with appropriate column index
+                    "Searches: Dec 2022": keyword_data[5],  # Replace with appropriate column index
+                    "Searches: Jan 2023": keyword_data[6],  # Replace with appropriate column index
+                    "Searches: Feb 2023": keyword_data[7],  # Replace with appropriate column index
+                    "Searches: Mar 2023": keyword_data[8],  # Replace with appropriate column index
+                    "Searches: Apr 2023": keyword_data[9],  # Replace with appropriate column index
+                    "Searches: May 2023": keyword_data[10],  # Replace with appropriate column index
+                    "Searches: Jun 2023": keyword_data[11],  # Replace with appropriate column index
+                    "Searches: Jul 2023": keyword_data[12],  # Replace with appropriate column index
+                    "Searches: Aug 2023": keyword_data[13],  # Replace with appropriate column index
+                    "Searches: Sep 2023": keyword_data[14],  # Replace with appropriate column index
+                    "Searches: Oct 2023": keyword_data[15],  # Replace with appropriate column index
+                    "Searches: Nov 2023": keyword_data[16],  # Replace with appropriate column index
                     "Updated": formatted_date  # Use the calculated date from one week ago
                 })
             #print (filtered_related_data)
@@ -863,27 +848,25 @@ def google_keyword_Data():
             return jsonify({"error": "Invalid country code."}), 400
         
         sanitized_country = country.strip().lower()
-    
-        # Construct the table name based on the selected country
-        table_name = f'google_keyword_data_{sanitized_country.lower()}'
-
         # Create a database connection
-        db_connection = create_db_connection()
+        db_connection = connect_to_postgres()
         if db_connection is None:
             return jsonify({"error": "Failed to connect to the database."}), 500
 
         cursor = db_connection.cursor()
-
+        print("Connected to MySQL!////")
+        print(cursor)
+    
         # Construct the table name based on the selected country
-        table_name = f'google_keyword_data_{sanitized_country.lower()}'
+        table_name = f'googlekeywords_data_{sanitized_country.lower()}'
 
-        page = int(request.args.get('page', 1))  # Default to page 1 if not provided
-        limit = int(request.args.get('limit', 10))  # Default to 10 results per page
-
-        # Modify your SQL query to include LIMIT and OFFSET
-        query = f"SELECT * FROM {table_name} LIMIT %s OFFSET %s"
-        cursor.execute(query, (limit, (page - 1) * limit))
+        # Use string formatting to insert the table name into the SQL query
+        query = f"SELECT * FROM {table_name} ORDER BY RANDOM() LIMIT {num_rows}"
+        cursor.execute(query)
         keywords_data = cursor.fetchall()
+
+        print(".................")
+        print(len(keywords_data))
         if not table_name:
             # Handle the case where no data is found in the table
             return jsonify({"message": "No data found in the database."})
@@ -897,24 +880,23 @@ def google_keyword_Data():
             similarity_ratio = difflib.SequenceMatcher(None, sanitized_keyword, keyword).ratio()
             if similarity_ratio >= 0.8:  # Exclude very short words
                 filtered_related_data.append({
-                    "Keyword": keyword_data[0],  # Replace with appropriate column index
+                   "Keyword": keyword_data[0],  # Replace with appropriate column index
                     "Avg. monthly searches": keyword_data[1],  # Replace with appropriate column index
-                    "Competition": keyword_data[2],  # Replace with appropriate column index
-                    "Competition (indexed value)": keyword_data[3],  # Replace with appropriate column index
-                    "Top of page bid (low range)": keyword_data[4],  # Replace with appropriate column index
-                    "Top of page bid (high range)": keyword_data[5],  # Replace with appropriate column index
-                    "Searches: Sep 2022": keyword_data[6],  # Replace with appropriate column index
-                    "Searches: Oct 2022": keyword_data[7],  # Replace with appropriate column index
-                    "Searches: Nov 2022": keyword_data[8],  # Replace with appropriate column index
-                    "Searches: Dec 2022": keyword_data[9],  # Replace with appropriate column index
-                    "Searches: Jan 2023": keyword_data[10],  # Replace with appropriate column index
-                    "Searches: Feb 2023": keyword_data[11],  # Replace with appropriate column index
-                    "Searches: Mar 2023": keyword_data[12],  # Replace with appropriate column index
-                    "Searches: Apr 2023": keyword_data[13],  # Replace with appropriate column index
-                    "Searches: May 2023": keyword_data[14],  # Replace with appropriate column index
-                    "Searches: Jun 2023": keyword_data[15],  # Replace with appropriate column index
-                    "Searches: Jul 2023": keyword_data[16],  # Replace with appropriate column index
-                    "Searches: Aug 2023": keyword_data[17],  # Replace with appropriate column index
+                    "Competition (indexed value)": keyword_data[2],  # Replace with appropriate column index
+                    "Top of page bid (low range)": keyword_data[3],  # Replace with appropriate column index
+                    "Top of page bid (high range)": keyword_data[4],  # Replace with appropriate column index
+                    "Searches: Dec 2022": keyword_data[5],  # Replace with appropriate column index
+                    "Searches: Jan 2023": keyword_data[6],  # Replace with appropriate column index
+                    "Searches: Feb 2023": keyword_data[7],  # Replace with appropriate column index
+                    "Searches: Mar 2023": keyword_data[8],  # Replace with appropriate column index
+                    "Searches: Apr 2023": keyword_data[9],  # Replace with appropriate column index
+                    "Searches: May 2023": keyword_data[10],  # Replace with appropriate column index
+                    "Searches: Jun 2023": keyword_data[11],  # Replace with appropriate column index
+                    "Searches: Jul 2023": keyword_data[12],  # Replace with appropriate column index
+                    "Searches: Aug 2023": keyword_data[13],  # Replace with appropriate column index
+                    "Searches: Sep 2023": keyword_data[14],  # Replace with appropriate column index
+                    "Searches: Oct 2023": keyword_data[15],  # Replace with appropriate column index
+                    "Searches: Nov 2023": keyword_data[16],  # Replace with appropriate column index
                     "Updated": formatted_date  # Use the calculated date from one week ago
                })
 
